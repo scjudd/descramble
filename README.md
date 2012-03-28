@@ -7,7 +7,7 @@ Scramble Solver
 
 1. Connected squares must form a real word.
 2. No square may be used more than once.
-3. Connected squared must be contiguous.
+3. Connected squares must be contiguous.
 
 ![Contiguous](http://dumpon.us/media/uploads/contiguous.png)
 
