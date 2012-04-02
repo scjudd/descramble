@@ -19,6 +19,36 @@ Searching should be done using a breadth-first algorithm. For example:
 
 ![(0,0)->(0,1)](http://img195.imageshack.us/img195/6126/0001gm.png)
 
+## Data Structure
+
+```python
+{"T": {
+    "is_word": False,
+    "E": {
+        "is_word": False,
+        "A": {
+            "is_word": True,
+            "R": {
+                "is_word": True
+            },
+            "S": {
+                "is_word": True,
+                "E": {
+                    "is_word": True
+                }
+            }
+        },
+        "S": {
+            "is_word": False,
+            "T": {
+                "is_word": True
+            }
+        }
+    }
+    }
+}
+```
+
 ## Screenshot
 
 ![Scaled Screenshot](http://dumpon.us/media/uploads/scaled_screenshot.png)
