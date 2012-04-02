@@ -1,6 +1,7 @@
 from collections import deque
 
 def neighbors(c,r):
+    """generates a list of neighboring coordinate pairs"""
     for nc in xrange(max(0,c-1),min(4,c+2)):
         for nr in xrange(max(0,r-1),min(4,r+2)):
             if nr == r and nc == c: continue
