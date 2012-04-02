@@ -7,16 +7,6 @@ def neighbors(c,r):
             if nr == r and nc == c: continue
             yield nc,nr
 
-def dfs(start, path=[]):
-    """recursive depth-first search"""
-    if len(path) == 0:
-        path.append(start)
-    nodes = set(n for n in neighbors(*start)) - set(path)
-    for node in nodes:
-        for sub_path in dfs(node, path+[node]):
-            yield sub_path
-    yield path
-
 def bfs(start):
     """iterative breadth-first search"""
     queue = deque([[start]])
@@ -50,9 +40,6 @@ if __name__ == '__main__':
         for r in xrange(0,4):
             print data[(c,r)][0], [data[n][0] for n in neighbors(c,r)]
 
-    print '*** starting depth-first search ***'
-    for path in dfs((0,0)):
-        print path
 
     print '*** starting breadth-first search ***'
     for path in bfs((0,0)):
