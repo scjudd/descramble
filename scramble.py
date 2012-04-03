@@ -20,7 +20,7 @@ def bfs(start, graph, trie):
 
         for neighbor in set(neighbors(*path[-1])) - set(path):
 
-            word = ''.join([graph[n][0] for n in path]+[graph[neighbor][0]])
+            word = path_word(graph,path) + path_word(graph,[neighbor])
             result = trie.find(word)
 
             if result.is_word:
@@ -48,32 +48,37 @@ def build_trie(fileObj):
 
     return trie
 
-def score(graph, path):
+def path_word(graph, path):
+    """translates a path into a word"""
+
+    return ''.join([graph[n][0] for n in path])
+
+def path_score(graph, path):
     """scores a given path, taking modifiers into account"""
 
-    path_score, path_multipliers = 0, []
+    score, path_multipliers = 0, []
 
     for node in path:
 
         if graph[node][-1] == '2L':
-            path_score += 2*graph[node][-2]
+            score += 2*graph[node][-2]
 
         elif graph[node][-1] == '3L':
-            path_score += 3*graph[node][-2]
+            score += 3*graph[node][-2]
 
         elif graph[node][-1] == '2W':
             path_multipliers.append(2)
-            path_score += graph[node][-2]
+            score += graph[node][-2]
 
         elif graph[node][-1] == '3W':
             path_multipliers.append(3)
-            path_score += graph[node][-2]
+            score += graph[node][-2]
 
         else:
-            path_score += graph[node][-1]
+            score += graph[node][-1]
 
-    path_score = reduce(lambda s,m: s*m, [path_score]+path_multipliers)
-    return path_score
+    score = reduce(lambda s,m: s*m, [score]+path_multipliers)
+    return score
 
 if __name__ == '__main__':
 
@@ -109,8 +114,10 @@ if __name__ == '__main__':
     # TODO: only save the best-scoring path for each word
     found = []
     for path in search(graph, trie):
-        word = ''.join([graph[n][0] for n in path])
-        found.append({'word':word, 'path':path, 'score':score(graph, path)})
+        found.append({
+            'path':path,
+            'word':path_word(graph, path),
+            'score':path_score(graph, path)})
     found.sort(key=lambda w: w['score'], reverse=True)
     print '*** finished breadth-first search! ***'
 
