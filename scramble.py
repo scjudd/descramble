@@ -1,42 +1,6 @@
 from collections import deque
 from trie import Trie
 
-def neighbors(c,r):
-    """generates a list of neighboring coordinate pairs"""
-
-    for nc in xrange(max(0,c-1),min(4,c+2)):
-        for nr in xrange(max(0,r-1),min(4,r+2)):
-            if nr == r and nc == c: continue
-            yield nc,nr
-
-def bfs(start, graph, trie):
-    """iterative breadth-first search"""
-
-    queue = deque([[start]])
-
-    while queue:
-
-        path = queue.popleft()
-
-        for neighbor in set(neighbors(*path[-1])) - set(path):
-
-            word = path_word(graph,path) + path_word(graph,[neighbor])
-            result = trie.find(word)
-
-            if result.is_word:
-                yield path+[neighbor]
-
-            if result.is_prefix:
-                queue.extend([path+[neighbor]])
-
-def search(graph, trie):
-    """begin a series of breadth-first searches on every coordinate pair"""
-
-    for c in xrange(0,4):
-        for r in xrange(0,4):
-            for path in bfs((c,r), graph, trie):
-                yield path
-
 def build_trie(fileObj):
     """parse a file containing a newline-separated list of words into
     a prefix tree"""
@@ -79,6 +43,42 @@ def path_score(graph, path):
 
     score = reduce(lambda s,m: s*m, [score]+path_multipliers)
     return score
+
+def neighbors(c,r):
+    """generates a list of neighboring coordinate pairs"""
+
+    for nc in xrange(max(0,c-1),min(4,c+2)):
+        for nr in xrange(max(0,r-1),min(4,r+2)):
+            if nr == r and nc == c: continue
+            yield nc,nr
+
+def bfs(start, graph, trie):
+    """iterative breadth-first search"""
+
+    queue = deque([[start]])
+
+    while queue:
+
+        path = queue.popleft()
+
+        for neighbor in set(neighbors(*path[-1])) - set(path):
+
+            word = path_word(graph,path) + path_word(graph,[neighbor])
+            result = trie.find(word)
+
+            if result.is_word:
+                yield path+[neighbor]
+
+            if result.is_prefix:
+                queue.extend([path+[neighbor]])
+
+def search(graph, trie):
+    """begin a series of breadth-first searches on every coordinate pair"""
+
+    for c in xrange(0,4):
+        for r in xrange(0,4):
+            for path in bfs((c,r), graph, trie):
+                yield path
 
 if __name__ == '__main__':
 
