@@ -80,7 +80,7 @@ def search(graph, trie):
             for path in bfs((c,r), graph, trie):
                 yield path
 
-def solve(graph, Outrie):
+def solve(graph, trie):
     """solve the puzzle. returns the best-scoring path for each word"""
 
     found = {}
