@@ -80,6 +80,26 @@ def search(graph, trie):
             for path in bfs((c,r), graph, trie):
                 yield path
 
+def solve(graph, Outrie):
+    """solve the puzzle. returns the best-scoring path for each word"""
+
+    found = {}
+
+    for path in search(graph, trie):
+
+        word = path_word(graph, path)
+        score = path_score(graph, path)
+
+        if found.has_key(word):
+            if found[word]['score'] < score:
+                found[word]['path'] = path
+                found[word]['score'] = score
+            continue
+
+        found[word] = { 'path': path, 'score': score }
+
+    return found
+
 if __name__ == '__main__':
 
     graph = {}
@@ -103,13 +123,9 @@ if __name__ == '__main__':
     with open('TWL_2006_ALPHA.txt') as word_list:
         trie = build_trie(word_list)
 
+    results = solve(graph, trie)
+    sorted_results = sorted(results.iteritems(), key=lambda w:w[1]['score'],
+                            reverse=True)
 
-    found = []
-    for path in search(graph, trie):
-        found.append({
-            'path':path,
-            'word':path_word(graph, path),
-            'score':path_score(graph, path)})
-    found.sort(key=lambda w: w['score'], reverse=True)
-    for f in found:
-        print f['word'], f['score']
+    for result in sorted_results:
+        print result
