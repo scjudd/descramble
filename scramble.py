@@ -1,16 +1,5 @@
 from collections import deque
-from trie import Trie
-
-def build_trie(fileObj):
-    """parse a file containing a newline-separated list of words into
-    a prefix tree"""
-
-    trie = Trie()
-
-    for word in fileObj.readlines():
-        trie.insert(word.upper().strip())
-
-    return trie
+from trie import Trie, build_trie
 
 def path_word(graph, path):
     """translates a path into a word"""

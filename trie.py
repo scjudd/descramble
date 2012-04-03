@@ -1,5 +1,16 @@
 from collections import namedtuple
 
+def build_trie(fileObj):
+    """parse a file containing a newline-separated list of words into
+    a prefix tree"""
+
+    trie = Trie()
+
+    for word in fileObj.readlines():
+        trie.insert(word.upper().strip())
+
+    return trie
+
 Result = namedtuple('Result', ['is_prefix','is_word'])
 
 class Trie:
