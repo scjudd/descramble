@@ -3,6 +3,7 @@ from trie import Trie
 
 def neighbors(c,r):
     """generates a list of neighboring coordinate pairs"""
+
     for nc in xrange(max(0,c-1),min(4,c+2)):
         for nr in xrange(max(0,r-1),min(4,r+2)):
             if nr == r and nc == c: continue
@@ -10,8 +11,11 @@ def neighbors(c,r):
 
 def bfs(start, graph, trie):
     """iterative breadth-first search"""
+
     queue = deque([[start]])
+
     while queue:
+
         path = queue.popleft()
 
         for neighbor in set(neighbors(*path[-1])) - set(path):
