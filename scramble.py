@@ -100,18 +100,10 @@ if __name__ == '__main__':
     graph[(2,3)] = ('A',1)
     graph[(3,3)] = ('P',4)
 
-    for c in xrange(0,4):
-        for r in xrange(0,4):
-            print graph[(c,r)][0], [graph[n][0] for n in neighbors(c,r)]
-
-    print '*** building trie ***'
     with open('TWL_2006_ALPHA.txt') as word_list:
         trie = build_trie(word_list)
-    print '*** trie built! ***'
 
 
-    print '*** starting breadth-first search ***'
-    # TODO: only save the best-scoring path for each word
     found = []
     for path in search(graph, trie):
         found.append({
@@ -119,8 +111,5 @@ if __name__ == '__main__':
             'word':path_word(graph, path),
             'score':path_score(graph, path)})
     found.sort(key=lambda w: w['score'], reverse=True)
-    print '*** finished breadth-first search! ***'
-
-    print '*** RESULTS ***'
     for f in found:
         print f['word'], f['score']
