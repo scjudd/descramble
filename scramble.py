@@ -1,3 +1,5 @@
+#!/usr/bin/env python2
+
 from collections import deque
 from graph import build_graph
 from trie import build_trie
@@ -52,7 +54,8 @@ def solve(graph, trie):
 
 if __name__ == '__main__':
 
-    graph = build_graph('SRQAASITIDENFSAP')
+    import sys
+    graph = build_graph(sys.argv[-1])
 
     with open('TWL_2006_ALPHA.txt') as word_list:
         trie = build_trie(word_list)
