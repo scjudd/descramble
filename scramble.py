@@ -48,15 +48,42 @@ def build_trie(fileObj):
 
     return trie
 
+def score(graph, path):
+    """scores a given path, taking modifiers into account"""
+
+    path_score, path_multipliers = 0, []
+
+    for node in path:
+
+        if graph[node][-1] == '2L':
+            path_score += 2*graph[node][-2]
+
+        elif graph[node][-1] == '3L':
+            path_score += 3*graph[node][-2]
+
+        elif graph[node][-1] == '2W':
+            path_multipliers.append(2)
+            path_score += graph[node][-2]
+
+        elif graph[node][-1] == '3W':
+            path_multipliers.append(3)
+            path_score += graph[node][-2]
+
+        else:
+            path_score += graph[node][-1]
+
+    path_score = reduce(lambda s,m: s*m, [path_score]+path_multipliers)
+    return path_score
+
 if __name__ == '__main__':
 
     graph = {}
     graph[(0,0)] = ('S',1)
     graph[(1,0)] = ('R',1)
-    graph[(2,0)] = ('QU',10)
+    graph[(2,0)] = ('QU',10,'3W')
     graph[(3,0)] = ('A',1)
     graph[(0,1)] = ('A',1)
-    graph[(1,1)] = ('S',1)
+    graph[(1,1)] = ('S',1,'2L')
     graph[(2,1)] = ('I',1)
     graph[(3,1)] = ('T',1)
     graph[(0,2)] = ('I',1)
@@ -83,8 +110,7 @@ if __name__ == '__main__':
     found = []
     for path in search(graph, trie):
         word = ''.join([graph[n][0] for n in path])
-        score = reduce(lambda x,y: x+y, [graph[n][1] for n in path])
-        found.append({'word':word, 'path':path, 'score':score})
+        found.append({'word':word, 'path':path, 'score':score(graph, path)})
     found.sort(key=lambda w: w['score'], reverse=True)
     print '*** finished breadth-first search! ***'
 
