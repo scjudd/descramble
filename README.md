@@ -23,6 +23,15 @@ For example:
 Data will be parsed from a text file containing a list of newline-separated
 words into a [prefix tree][wiki_trie] structure.
 
+## Usage
+
+python ./scramble.py "H\*\*ENCS++IMHN++ORASP++EN"
+
+* + = double letter
+* ++ = triple letter
+* \* = double word
+* \*\* = triple word
+
 ## Screenshot
 
 This is a scaled and cropped screenshot taken from my iPad 1. It should not be
