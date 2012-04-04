@@ -5,7 +5,10 @@ def build_graph(tokenized): # i.e., "H**ENCS++IMHN++ORASP++EN"
 
     tokens = filter(lambda t: t!='', re.split(r'(\w\+*\**)', tokenized))
     for token in tokens:
-        graph.insert(token[0], token[1:]) # 'Q', '**'
+        if token[1:] == '':
+            graph.insert(token[0])
+        else:
+            graph.insert(token[0], token[1:])
 
     return graph
 
@@ -31,9 +34,6 @@ class Graph:
         data_len = len(self.data)
         if data_len >= 16:
             raise Exception('A maximum of 16 letters may be inserted')
-
-        if modifier == '':
-            modifier = None
 
         if letter == 'Q':
             letter = 'QU'
