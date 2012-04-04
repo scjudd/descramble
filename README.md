@@ -25,7 +25,9 @@ words into a [prefix tree][wiki_trie] structure.
 
 ## Usage
 
-python ./scramble.py "H\*\*ENCS++IMHN++ORASP++EN"
+```
+python ./scramble.py "H**ENCS++IMHN++ORASP++EN"
+```
 
 * + = double letter
 * ++ = triple letter
