@@ -1,6 +1,6 @@
 import re
 
-def build_graph(tokenized):
+def build_graph(tokenized): # i.e., "H**ENCS++IMHN++ORASP++EN"
     graph = Graph()
 
     tokens = filter(lambda t: t!='', re.split(r'(\w\+*\**)', tokenized))
@@ -29,8 +29,8 @@ class Graph:
         """insert a letter into the next available position"""
 
         data_len = len(self.data)
-        if data_len >= 17:
-            raise Exception
+        if data_len >= 16:
+            raise Exception('A maximum of 16 letters may be inserted')
 
         if modifier == '':
             modifier = None
@@ -65,20 +65,25 @@ class Graph:
 
         for node in path:
 
+            # double letter
             if self[node]['modifier'] == '+':
                 score += 2*self[node]['value']
 
+            # triple letter
             elif self[node]['modifier'] == '++':
                 score += 3*self[node]['value']
 
+            # double word
             elif self[node]['modifier'] == '*':
                 path_multipliers.append(2)
                 score += self[node]['value']
 
+            # triple word
             elif self[node]['modifier'] == '**':
                 path_multipliers.append(3)
                 score += self[node]['value']
 
+            # no modifier
             else:
                 score += self[node]['value']
 
