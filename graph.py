@@ -59,7 +59,8 @@ class Graph:
         return ''.join([self[node]['letter'] for node in path])
 
     def path_score(self, path):
-        """scores a given path, taking modifiers into account"""
+        """scores a given path, taking modifiers and length bonuses
+        into account"""
 
         score, path_multipliers = 0, []
 
@@ -88,4 +89,18 @@ class Graph:
                 score += self[node]['value']
 
         score = reduce(lambda s,m: s*m, [score]+path_multipliers)
+
+        # word length bonus points (applied after path multipliers)
+        word_len = len(path)
+        if word_len >= 9:
+            score += 20
+        if word_len == 8:
+            score += 15
+        if word_len == 7:
+            score += 10
+        if word_len == 6:
+            score += 6
+        if word_len == 5:
+            score += 3
+
         return score
