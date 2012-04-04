@@ -31,6 +31,7 @@ python ./scramble.py "H\*\*ENCS++IMHN++ORASP++EN"
 * ++ = triple letter
 * \* = double word
 * \*\* = triple word
+* NOTE: The 'Qu' tile should be expressed as 'Q'
 
 ## Screenshot
 
