@@ -35,6 +35,8 @@ class Graph:
         if data_len >= 16:
             raise Exception('A maximum of 16 letters may be inserted')
 
+        letter = letter.upper()
+
         if letter == 'Q':
             letter = 'QU'
 
