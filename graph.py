@@ -38,7 +38,7 @@ class Graph:
         if letter == 'Q':
             letter = 'QU'
 
-        index = (data_len/4,data_len%4)
+        index = (data_len%4,data_len/4)
         self[index] = {
             'letter': letter,
             'value': Graph.LETTER_VALUES[letter],
