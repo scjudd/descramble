@@ -35,12 +35,16 @@ python ./scramble.py "H**ENCS++IMHN++ORASP++EN"
 * \*\* = triple word
 * NOTE: The 'Qu' tile should be expressed as 'Q'
 
-## Screenshot
+## Screenshots
 
 This is a scaled and cropped screenshot taken from my iPad 1. It should not be
 used for image processing.
 
 ![Scaled Screenshot](http://dumpon.us/media/uploads/scaled_screenshot.png)
+
+Current GUI Screenshot:
+
+![GUI](http://img812.imageshack.us/img812/2074/guiscreenshot.png)
 
 [wiki_bfs]: http://en.wikipedia.org/wiki/Breadth-first_search
 [wiki_trie]: http://en.wikipedia.org/wiki/Trie
