@@ -57,7 +57,7 @@ if __name__ == '__main__':
     import sys
     graph = build_graph(sys.argv[1])
 
-    with open('TWL_2006_ALPHA.txt') as word_list:
+    with open('resources/word_lists/TWL_2006_ALPHA.txt') as word_list:
         trie = build_trie(word_list)
 
     results = solve(graph, trie)

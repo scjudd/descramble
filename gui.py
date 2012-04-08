@@ -17,8 +17,7 @@ class MyFrame(wx.Frame):
         self.DrawCurPath()
 
     def PaintBackground(self):
-        background_image = wx.Image('background.png')
-        bmp = wx.BitmapFromImage(background_image)
+        bmp = wx.Bitmap('resources/images/background.png')
 
         dc = wx.PaintDC(self.canvas)
         dc.DrawBitmap(bmp, 0, 0)
@@ -54,7 +53,7 @@ if __name__ == '__main__':
     import sys
     graph = build_graph(sys.argv[1])
 
-    with open('TWL_2006_ALPHA.txt') as word_list:
+    with open('resources/word_lists/TWL_2006_ALPHA.txt') as word_list:
         trie = build_trie(word_list)
 
     results = solve(graph, trie)
