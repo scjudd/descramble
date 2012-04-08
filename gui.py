@@ -7,12 +7,12 @@ class MyFrame(wx.Frame):
         wx.Frame.__init__(self, parent, title=title, size=(400,200))
 
         self.canvas = wx.Panel(self, -1, (0, 0), (200,200))
-        self.canvas.Bind(wx.EVT_PAINT, lambda e: self.RepaintCanvas())
+        self.canvas.Bind(wx.EVT_PAINT, self.RepaintCanvas)
 
         self.listbox = wx.ListBox(self, -1, (200, 0), (200,200))
-        self.listbox.Bind(wx.EVT_LISTBOX, lambda e: self.RepaintCanvas())
+        self.listbox.Bind(wx.EVT_LISTBOX, self.RepaintCanvas)
 
-    def RepaintCanvas(self):
+    def RepaintCanvas(self, event):
         self.PaintBackground()
         self.DrawCurPath()
 
