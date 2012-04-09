@@ -48,7 +48,7 @@ class SolutionsFrame(wx.Frame):
 if __name__ == '__main__':
     from graph import build_graph
     from trie import build_trie
-    from scramble import solve
+    from descramble import solve
 
     import sys
     graph = build_graph(sys.argv[1])
@@ -61,7 +61,7 @@ if __name__ == '__main__':
                             reverse=True)
 
     app = wx.App(False)
-    frame = SolutionsFrame(None, 'Scramble Solver')
+    frame = SolutionsFrame(None, 'Descramble')
     frame.SetResults(sorted_results)
     frame.Show(True)
     app.MainLoop()

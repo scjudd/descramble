@@ -80,7 +80,7 @@ if __name__ == '__main__':
     from gui import SolutionsFrame
 
     app = wx.App(False)
-    frame = SolutionsFrame(None, 'Scramble Solver')
+    frame = SolutionsFrame(None, 'Descramble')
     frame.SetResults(sorted_results)
     frame.Show(True)
     app.MainLoop()

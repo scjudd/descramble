@@ -1,5 +1,5 @@
-Scramble Solver
-===============
+Descramble
+==========
 
 ## Requirements
 
@@ -8,7 +8,7 @@ Scramble Solver
 ## Usage
 
 ```bash
-python ./scramble.py "H**ENCS++IMHN++ORASP++EN"
+python ./descramble.py "H**ENCS++IMHN++ORASP++EN"
 ```
 
 * + = double letter
