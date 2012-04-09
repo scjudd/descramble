@@ -20,7 +20,7 @@ class SolutionsFrame(wx.Frame):
         self.DrawCurPath()
 
     def PaintBackground(self):
-        bmp = wx.Bitmap(RESOURCES_DIR+'/images/background.png')
+        bmp = wx.Bitmap(RESOURCES_DIR+'/background.png')
 
         dc = wx.PaintDC(self.canvas)
         dc.DrawBitmap(bmp, 0, 0)
