@@ -7,7 +7,7 @@ RESOURCES_DIR = os.path.join(os.path.dirname(__file__), 'resources')
 
 class SolutionsFrame(wx.Frame):
     def __init__(self, parent, title):
-        wx.Frame.__init__(self, parent, title=title, size=(400,240))
+        wx.Frame.__init__(self, parent, title=title, size=(400,200))
 
         self.canvas = wx.Panel(self, -1, (0, 0), (200,200))
         self.canvas.Bind(wx.EVT_PAINT, self.RepaintCanvas)
