@@ -1,10 +1,13 @@
 #!/usr/bin/env python2
 
+import os
 import wx
+
+RESOURCES_DIR = os.path.join(os.path.dirname(__file__), 'resources')
 
 class SolutionsFrame(wx.Frame):
     def __init__(self, parent, title):
-        wx.Frame.__init__(self, parent, title=title, size=(400,200))
+        wx.Frame.__init__(self, parent, title=title, size=(400,240))
 
         self.canvas = wx.Panel(self, -1, (0, 0), (200,200))
         self.canvas.Bind(wx.EVT_PAINT, self.RepaintCanvas)
@@ -17,7 +20,7 @@ class SolutionsFrame(wx.Frame):
         self.DrawCurPath()
 
     def PaintBackground(self):
-        bmp = wx.Bitmap('resources/images/background.png')
+        bmp = wx.Bitmap(RESOURCES_DIR+'/images/background.png')
 
         dc = wx.PaintDC(self.canvas)
         dc.DrawBitmap(bmp, 0, 0)
@@ -44,24 +47,3 @@ class SolutionsFrame(wx.Frame):
                     clientData=r[1]['path'])
 
         self.listbox.SetSelection(0)
-
-if __name__ == '__main__':
-    from graph import build_graph
-    from trie import build_trie
-    from descramble import solve
-
-    import sys
-    graph = build_graph(sys.argv[1])
-
-    with open('resources/word_lists/TWL_2006_ALPHA.txt') as word_list:
-        trie = build_trie(word_list)
-
-    results = solve(graph, trie)
-    sorted_results = sorted(results.iteritems(), key=lambda w:w[1]['score'],
-                            reverse=True)
-
-    app = wx.App(False)
-    frame = SolutionsFrame(None, 'Descramble')
-    frame.SetResults(sorted_results)
-    frame.Show(True)
-    app.MainLoop()

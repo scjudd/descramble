@@ -1,8 +1,8 @@
 #!/usr/bin/env python2
 
 from collections import deque
-from graph import build_graph
-from trie import build_trie
+from descramble.graph import build_graph
+from descramble.trie import build_trie
 
 def bfs(start, graph, trie):
     """iterative breadth-first search"""
@@ -54,10 +54,24 @@ def solve(graph, trie):
 
 if __name__ == '__main__':
 
+    import os
+    def default_wordlist():
+        paths = ['words.txt','TWL_2006_ALPHA.txt',
+                '/usr/share/descramble/TWL_2006_ALPHA.txt']
+
+        for path in paths:
+            if os.path.exists(path): return path
+
+        return 'words.txt'
+
     import argparse
     parser = argparse.ArgumentParser(
         description="Solve Scramble with Friends puzzles like a pro.",
         formatter_class=argparse.RawTextHelpFormatter)
+
+    parser.add_argument('-w', dest='wordlist', type=argparse.FileType('r'),
+        default=default_wordlist(),
+        help='specify the word list')
 
     parser.add_argument(dest='tokenized', metavar='PUZZLE',
         help='e.g., "H**ENCS++IMHN++ORASP++EN", where\n'
@@ -67,17 +81,17 @@ if __name__ == '__main__':
              '\t** = triple word\n'
              '\tNOTE: \'Qu\' is expressed as \'Q\'')
 
-    graph = build_graph(vars(parser.parse_args())['tokenized'])
+    args = vars(parser.parse_args())
 
-    with open('resources/word_lists/TWL_2006_ALPHA.txt') as word_list:
-        trie = build_trie(word_list)
+    trie = build_trie(args['wordlist'])
+    graph = build_graph(args['tokenized'])
 
     results = solve(graph, trie)
     sorted_results = sorted(results.iteritems(), key=lambda w:w[1]['score'],
         reverse=True)
 
     import wx
-    from gui import SolutionsFrame
+    from descramble.gui import SolutionsFrame
 
     app = wx.App(False)
     frame = SolutionsFrame(None, 'Descramble')
