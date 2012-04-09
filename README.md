@@ -1,18 +1,14 @@
 Scramble Solver
 ===============
 
-## Usage
+## Requirements
 
-To output results to the terminal:
+* wxPython
+
+## Usage
 
 ```bash
 python ./scramble.py "H**ENCS++IMHN++ORASP++EN"
-```
-
-To use the GUI (requires wxPython):
-
-```bash
-python ./gui.py "H**ENCS++IMHN++ORASP++EN"
 ```
 
 * + = double letter

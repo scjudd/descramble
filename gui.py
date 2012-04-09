@@ -2,7 +2,7 @@
 
 import wx
 
-class MyFrame(wx.Frame):
+class SolutionsFrame(wx.Frame):
     def __init__(self, parent, title):
         wx.Frame.__init__(self, parent, title=title, size=(400,200))
 
@@ -61,7 +61,7 @@ if __name__ == '__main__':
                             reverse=True)
 
     app = wx.App(False)
-    frame = MyFrame(None, 'Scramble Solver')
+    frame = SolutionsFrame(None, 'Scramble Solver')
     frame.SetResults(sorted_results)
     frame.Show(True)
     app.MainLoop()

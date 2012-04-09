@@ -54,15 +54,33 @@ def solve(graph, trie):
 
 if __name__ == '__main__':
 
-    import sys
-    graph = build_graph(sys.argv[1])
+    import argparse
+    parser = argparse.ArgumentParser(
+        description="Solve Scramble with Friends puzzles like a pro.",
+        formatter_class=argparse.RawTextHelpFormatter)
+
+    parser.add_argument(dest='tokenized', metavar='PUZZLE',
+        help='e.g., "H**ENCS++IMHN++ORASP++EN", where\n'
+             '\t+  = double letter\n'
+             '\t++ = triple letter\n'
+             '\t*  = double word\n'
+             '\t** = triple word\n'
+             '\tNOTE: \'Qu\' is expressed as \'Q\'')
+
+    graph = build_graph(vars(parser.parse_args())['tokenized'])
 
     with open('resources/word_lists/TWL_2006_ALPHA.txt') as word_list:
         trie = build_trie(word_list)
 
     results = solve(graph, trie)
     sorted_results = sorted(results.iteritems(), key=lambda w:w[1]['score'],
-                            reverse=True)
+        reverse=True)
 
-    for result in sorted_results:
-        print result
+    import wx
+    from gui import SolutionsFrame
+
+    app = wx.App(False)
+    frame = SolutionsFrame(None, 'Scramble Solver')
+    frame.SetResults(sorted_results)
+    frame.Show(True)
+    app.MainLoop()
