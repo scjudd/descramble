@@ -6,7 +6,7 @@ from distutils.core import setup
 shutil.copyfile('descramble.py', 'descramble/descramble')
 
 setup(name="descramble",
-      version="20120409",
+      version="20130602",
       description="Solve Scramble with Friends puzzles like a pro.",
       author="Spencer Judd",
       author_email="spencercjudd@gmail.com",
@@ -14,7 +14,7 @@ setup(name="descramble",
       packages=['descramble'],
       package_data={'descramble': ['resources/*.png']},
       data_files=[('share/descramble', [
-          'descramble/resources/TWL_2006_ALPHA.txt'])],
+          'descramble/resources/words.marisa'])],
       scripts=['descramble/descramble'],
      )
 

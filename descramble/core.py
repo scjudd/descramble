@@ -1,6 +1,5 @@
 from collections import deque
 from descramble.graph import build_graph
-from descramble.trie import build_trie
 
 def bfs(start, graph, trie):
     """iterative breadth-first search"""
@@ -13,13 +12,12 @@ def bfs(start, graph, trie):
 
         for neighbor in set(graph.neighbors(*path[-1])) - set(path):
 
-            word = graph.path_word(path) + graph[neighbor]['letter']
-            result = trie.find(word)
+            word = unicode(graph.path_word(path) + graph[neighbor]['letter'])
 
-            if result.is_word:
+            if word in trie:
                 yield path+[neighbor]
 
-            if result.is_prefix:
+            if trie.keys(word):
                 queue.extend([path+[neighbor]])
 
 def search(graph, trie):

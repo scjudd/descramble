@@ -4,19 +4,19 @@ import os
 import argparse
 import wx
 
-from descramble.trie import build_trie
+import marisa_trie
+
 from descramble.graph import build_graph
 from descramble.core import solve
 from descramble.gui import SolutionsFrame
 
 def default_wordlist():
-    paths = ['words.txt','TWL_2006_ALPHA.txt',
-            '/usr/share/descramble/TWL_2006_ALPHA.txt']
+    paths = ['words.marisa', '/usr/share/descramble/words.marisa']
 
     for path in paths:
         if os.path.exists(path): return path
 
-    return 'words.txt'
+    return 'words.marisa'
 
 parser = argparse.ArgumentParser(
     description="Solve Scramble with Friends puzzles like a pro.",
@@ -36,7 +36,9 @@ parser.add_argument(dest='tokenized', metavar='PUZZLE',
 
 args = vars(parser.parse_args())
 
-trie = build_trie(args['wordlist'])
+trie = marisa_trie.Trie()
+trie.read(args['wordlist'])
+
 graph = build_graph(args['tokenized'])
 
 results = solve(graph, trie)
