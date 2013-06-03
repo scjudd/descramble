@@ -1,5 +1,4 @@
 from collections import deque
-from descramble.graph import build_graph
 
 def bfs(start, graph, trie):
     """iterative breadth-first search"""
